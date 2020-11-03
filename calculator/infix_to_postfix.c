@@ -13,7 +13,7 @@ struct Stack1
 }; 
 
 // Stack Operations 
-struct Stack1* createStack1( unsigned capacity ) 
+struct Stack1* createStack1(unsigned capacity) 
 { 
 	struct Stack1* stack1 = (struct Stack1*)malloc(sizeof(struct Stack1)); 
     if (!stack1) 
@@ -46,6 +46,10 @@ void push1(struct Stack1* stack1, char op)
 	stack1->array[++stack1->top] = op; 
 } 
 
+int isoperator(char C)
+{
+	return (C == '+' || C == '-' || C == '*' || C == '/');
+}
 
 // A utility function to check if 
 // the given character is operand 
@@ -128,4 +132,3 @@ int infixToPostfix(char* exp)
 
 	exp[++k] = '\0'; 
 } 
-
