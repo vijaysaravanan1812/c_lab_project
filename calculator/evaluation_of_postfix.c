@@ -27,10 +27,24 @@ int peek()
 // Function to perform an operation and return output. 
 int PerformOperation(char operation, int operand1, int operand2)
 {
-	if(operation == '+') return operand1 +operand2;
-	else if(operation == '-') return operand1 - operand2;
-	else if(operation == '*') return operand1 * operand2;
-	else if(operation == '/') return operand1 / operand2;
+	if(operation == '+') 
+		return operand1 +operand2;
+	else if(operation == '-') 
+		return operand1 - operand2;
+	else if(operation == '*') 
+		return operand1 * operand2;
+	else if(operation == '/') 	
+		return operand1 / operand2;
+	else if (operation == '^')
+	{
+		int product = 1;
+		for (int i = 1; i <= operand2; i++)
+		{
+			product = product * operand1;
+		}
+		return product;
+		
+	}
 
 	else printf("Unexpected Error \n");
 	return -1; 

@@ -48,7 +48,7 @@ void push1(struct Stack1* stack1, char op)
 
 int isoperator(char C)
 {
-	return (C == '+' || C == '-' || C == '*' || C == '/');
+	return (C == '+' || C == '-' || C == '*' || C == '/' || C == '^');
 }
 
 // A utility function to check if 
