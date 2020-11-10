@@ -65,7 +65,6 @@ int main()
         get(temp); 
         copystr(temp,num_of_hisory[i].expression);
         infixToPostfix(temp);
-        printf("%s\n",temp);
         solution = evaluatePostfix(temp);
 	    printf("postfix evaluation: %d\n", evaluatePostfix(temp));
         num_of_hisory[i].result = solution;
