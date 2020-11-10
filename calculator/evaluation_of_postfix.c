@@ -1,31 +1,29 @@
-// C program to evaluate value of a postfix expression 
+
+
+//program to evaluate postfix expression
 #include <stdio.h> 
 #include <string.h> 
-#include <ctype.h> 
-#include <stdlib.h> 
 #include"infix_to_postfix.c"
+#include"get_str.c"
 
-// Stack type 
-int stack[50];
+// creating Stack  
+float stack[100];
 int top = -1;
-
-void push(int x)
+void push(float x)
 {
 	stack[++top] = x;
 }
-
-int pop()
+float pop()
 {
-	int x;
+	float x;
 	x = stack[top--];
 }
-
-int peek()
+float peek()
 {
 	return stack[top];
 }
 // Function to perform an operation and return output. 
-int PerformOperation(char operation, int operand1, int operand2)
+int PerformOperation(char operation, float operand1, float operand2)
 {
 	if(operation == '+') 
 		return operand1 +operand2;
@@ -33,11 +31,17 @@ int PerformOperation(char operation, int operand1, int operand2)
 		return operand1 - operand2;
 	else if(operation == '*') 
 		return operand1 * operand2;
-	else if(operation == '/') 	
+	else if(operation == '/')
+	{
+		if (operand2 == 0)
+		{
+			return 0;
+		}
 		return operand1 / operand2;
+	}
 	else if (operation == '^')
 	{
-		int product = 1;
+		float product = 1;
 		for (int i = 1; i <= operand2; i++)
 		{
 			product = product * operand1;
@@ -45,7 +49,6 @@ int PerformOperation(char operation, int operand1, int operand2)
 		return product;
 		
 	}
-
 	else printf("Unexpected Error \n");
 	return -1; 
 }
@@ -62,12 +65,10 @@ int evaluatePostfix(char* exp)
 		// push it to the stack.
 		if (exp[i] == ' ')
             continue;
-		
-        
-        else if (isdigit(exp[i])) 
+		else if (isOperand(exp[i])) 
         {
             int operand = 0; 
-			while(i< strlen(exp) && isdigit(exp[i]))
+			while(i< strlen(exp) && isOperand(exp[i]))
             {
 				// For a number with more than one digits, as we are scanning from left to right. 
 				// Everytime , we get a digit towards right, we can multiply current total in operand by 10 
@@ -96,13 +97,3 @@ int evaluatePostfix(char* exp)
 	return peek(); 
 } 
 
-// Driver program to test above functions 
-int main() 
-{ 
-	char exp[50];
-	printf("Enter the expression\n");
-    get(exp); 
-	infixToPostfix(exp); 
-	printf ("postfix evaluation: %d \n ", evaluatePostfix(exp)); 
-	return 0; 
-} 

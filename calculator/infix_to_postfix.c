@@ -1,14 +1,15 @@
+
+
 // C program to convert infix expression to postfix 
 #include <stdio.h> 
 #include <string.h> 
 #include <stdlib.h> 
-#include"get_str.c"
+#include"check.c"
 
 // Stack type 
 struct Stack1 
 { 
-	int top; 
-	unsigned capacity; 
+	int top;
 	char* array; 
 }; 
 
@@ -19,8 +20,7 @@ struct Stack1* createStack1(unsigned capacity)
     if (!stack1) 
 		return NULL; 
     stack1->top = -1; 
-	stack1->capacity = capacity; 
-    stack1->array = (char*) malloc(stack1->capacity * sizeof(char)); 
+    stack1->array = (char*) malloc(capacity * sizeof(char)); 
     return stack1; 
 } 
 
@@ -44,18 +44,6 @@ char pop1(struct Stack1* stack1)
 void push1(struct Stack1* stack1, char op) 
 { 
 	stack1->array[++stack1->top] = op; 
-} 
-
-int isoperator(char C)
-{
-	return (C == '+' || C == '-' || C == '*' || C == '/' || C == '^');
-}
-
-// A utility function to check if 
-// the given character is operand 
-int isOperand(char ch) 
-{ 
-	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' &&  ch <= '9'); 
 } 
 
 // A utility function to return 
@@ -82,7 +70,7 @@ int Prec(char ch)
 // The main function that 
 // converts given infix expression 
 // to postfix expression. 
-int infixToPostfix(char* exp) 
+char infixToPostfix(char exp[120]) 
 { 
 	int i, k; 
     // Create a stack of capacity 
@@ -94,10 +82,18 @@ int infixToPostfix(char* exp)
 	{ 
         if(exp[i] == ' ')
             exp[++k] = exp[i];
+
+		else if (exp[i] == '.')
+		{
+			exp[++k] = exp[i];;
+		}
 		// If the scanned character is 
 		// an operand, add it to output. 
 		else if (isOperand(exp[i])) 
 			exp[++k] = exp[i]; 
+
+
+		
 		
 		// If the scanned character is an 
 		// ‘(‘, push it to the stack. 
@@ -131,4 +127,5 @@ int infixToPostfix(char* exp)
 		exp[++k] = pop1(stack1 ); 
 
 	exp[++k] = '\0'; 
+	//return exp;
 } 
